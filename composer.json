@@ -16,8 +16,7 @@
     }
   ],
   "require": {
-    "gettext/gettext" : "4.6.*",
-    "twig/twig": ""
+    "gettext/gettext": "4.6.*"
   },
   "autoload": {
     "psr-4": {
