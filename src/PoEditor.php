@@ -20,26 +20,29 @@ class PoEditor
     const PHPFile = 1;
     const TwigFile = 2;
 
-    public function FromTwigFile($options) {
-        return $this->getFromFile($options,self::TwigFile);
+    public function FromTwigFile($options)
+    {
+        return $this->getFromFile($options, self::TwigFile);
     }
 
     public function fromPHPCodeFile($options)
     {
-        return $this->getFromFile($options,self::PHPFile);
+        return $this->getFromFile($options, self::PHPFile);
     }
 
 
-
-    private function getFromFile ($options,$fileType)
+    private function getFromFile($options, $fileType)
     {
         $callFunc = null;
+        $extension = null;
         switch ($fileType) {
             case self::PHPFile:
                 $callFunc = 'fromPhpCodeFile';
+                $extension = 'php';
                 break;
             case self::TwigFile:
                 $callFunc = 'fromTwigFile';
+                $extension = 'twig';
                 break;
             default:
         }
@@ -48,16 +51,20 @@ class PoEditor
             return null;
         }
         $translations = new Translations();
-        if ($options ['file']) {
-            $tempPo = forward_static_call(array(Translations::class,$callFunc,$options));
-            $translations->mergeWith($tempPo);
+        if (isset($options['file'])) {
+            if ($options ['file']) {
+                $tempPo = Translations::$callFunc($options['file']);
+                $translations->mergeWith($tempPo);
+            }
         }
-        if ($options['directories'] && is_array($options['directories'])) {
-            foreach ($options['directories'] as $directory) {
-                $files = $this->getPhpFiles($directory, $files);
-                foreach ($files as $file) {
-                    $tempPo = forward_static_call(array(Translations::class,$callFunc,$options));
-                    $translations->mergeWith($tempPo);
+        if (isset($options['directories'])) {
+            if ($options['directories'] && is_array($options['directories'])) {
+                foreach ($options['directories'] as $directory) {
+                    $files = $this->getFiles($directory, $extension, $files);
+                    foreach ($files as $file) {
+                        $tempPo = Translations::$callFunc($file);
+                        $translations->mergeWith($tempPo);
+                    }
                 }
             }
         }
@@ -85,11 +92,11 @@ class PoEditor
      * @param String $locale
      * @throws FileException
      */
-    public function SaveTranslationsToPoMoFile($translations, $directoryPath, $locale, $domain = 'LC_MESSAGES' )
+    public function SaveTranslationsToPoMoFile($translations, $directoryPath, $locale, $domain = 'LC_MESSAGES')
     {
         $localeDir = $locale . '_locale';
         $localeDir = sprintf('%s/%s', $directoryPath, $localeDir);
-        $domainDirectory = sprintf('%s/%s',$domain, $localeDir);
+        $domainDirectory = sprintf('%s/%s', $domain, $localeDir);
         $filesDir = sprintf('%s/', $domainDirectory);
         if (!is_dir($localeDir)) {
             if (!mkdir($localeDir) && !is_dir($localeDir)) {
@@ -106,7 +113,7 @@ class PoEditor
         $translations->toMoFile(sprintf('%s/translations.mo', $filesDir));
     }
 
-    private function getPhpFiles($dir, &$results = array())
+    private function getFiles($dir, $extension, &$results = array())
     {
         $files = scandir($dir, SCANDIR_SORT_NONE);
         foreach ($files as $key => $value) {
@@ -114,7 +121,7 @@ class PoEditor
             if (!is_dir($path)) {
                 $results[] = $path;
             } else if ($value !== '.' && $value !== '..') {
-                $this->getPhpFiles($path, $results);
+                $this->getFiles($path, $extension, $results);
                 $results[] = $path;
             }
         }
@@ -122,8 +129,13 @@ class PoEditor
         $filesArray = [];
         foreach ($results as $key => $fileName) {
             $info = pathinfo($fileName);
-            if ($info['extension'] === 'php') {
-                $filesArray[] = $fileName;
+            if (isset($info['extension'])) {
+                if ($info['extension'] === $extension) {
+                    $filesArray[] = $fileName;
+                }
+            }
+            else {
+                $c = 5;
             }
         }
 

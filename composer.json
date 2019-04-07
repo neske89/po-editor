@@ -9,8 +9,15 @@
       "email": "mail@nenadmilosavljevic.com"
     }
   ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/oscarotero/Gettext.git"
+    }
+  ],
   "require": {
-    "gettext/gettext" : "4.6.*"
+    "gettext/gettext" : "4.6.*",
+    "twig/twig": ""
   },
   "autoload": {
     "psr-4": {
