@@ -20,7 +20,7 @@ class PoEditor
     const PHPFile = 1;
     const TwigFile = 2;
 
-    public function fromTwigFile($options) {
+    public function FromTwigFile($options) {
         return $this->getFromFile($options,self::TwigFile);
     }
 
