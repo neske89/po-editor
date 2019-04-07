@@ -1,0 +1,21 @@
+{
+  "name": "nmilosavljevic/neo-po-editor",
+  "description": "PHP librabry which provides PHP web interface to edit or create po files",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Nenad Milosavljevic",
+      "email": "mail@nenadmilosavljevic.com"
+    }
+  ],
+  "require": {
+    "gettext/gettext" : "4.6.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "NMilosavljevic\\NeoTranslationsEditor\\": "/"
+    }
+  }
+
+}
