@@ -16,7 +16,13 @@
     }
   ],
   "require": {
-    "gettext/gettext": "4.6.*"
+    "gettext/gettext": "4.6.*",
+    "illuminate/view": "*",
+    "twig/extensions": "*",
+    "symfony/yaml": "~2",
+    "twig/twig": "^1.31|^2.0",
+    "squizlabs/php_codesniffer": "^3.0",
+    "phpunit/phpunit": "^4.8|^5.7|^6.5"
   },
   "autoload": {
     "psr-4": {
