@@ -1,3 +1,6 @@
+<?php
+/** @var NMilosavljevic\PoEditor\Translations\Translations $translations */
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,11 +12,34 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Translations Editor</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Translations Editor</a>
+</nav>
+
 <div class="container-fluid">
-    <h1>Hello, world!</h1>
+    <?php /** @var \Gettext\Translation $translation */ ?>
+    <?php foreach ($translations as $translation): ?>
+        <div class="card" style="margin-top:10px;margin-bottom:10px;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <?php echo $translation->getOriginal() ?>
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <textarea name="" id="" cols="1" rows="3" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach ?>
 </div>
 
 <!-- Optional JavaScript -->
