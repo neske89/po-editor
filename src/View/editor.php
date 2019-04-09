@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <style><?php include('editor.css') ?></style>
     <title>Translations Editor</title>
 </head>
 <body>
@@ -19,27 +19,32 @@
     <a class="navbar-brand" href="#">Translations Editor</a>
 </nav>
 
-<div class="container-fluid">
+<div class="">
     <?php /** @var \Gettext\Translation $translation */ ?>
-    <?php foreach ($translations as $translation): ?>
-        <div class="card" style="margin-top:10px;margin-bottom:10px;">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <?php echo $translation->getOriginal() ?>
-
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <textarea name="" id="" cols="1" rows="3" class="form-control"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php endforeach ?>
+    <form>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th class="text-center">Orignal</th>
+            <th class="text-center">Translation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($translations as $translation): ?>
+            <tr>
+                <td><?php echo $translation->getOriginal() ?></td>
+                <td class="translation">
+                <textarea name="translations" type="text" style="width:100%;height:100%"
+                          placeholder="Enter translation"><?php if (!empty($translation->getTranslation())) {
+                        echo $translation->getTranslation();
+                    } ?></textarea>
+                    <input type="hidden" name="translationKeys" value="<?php echo htmlspecialchars($translation->getOriginal())?>"
+                </td>
+            </tr>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+    </form>
 </div>
 
 <!-- Optional JavaScript -->
@@ -53,5 +58,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+<script><?php include('editor.js') ?></script>
+
 </body>
 </html>
