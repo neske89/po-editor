@@ -17,11 +17,12 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Translations Editor</a>
+    <button id="save-changes" class="btn btn-success">Save</button>
 </nav>
 
 <div class="">
     <?php /** @var \Gettext\Translation $translation */ ?>
-    <form>
+    <form id="translations-form">
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
