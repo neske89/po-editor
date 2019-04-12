@@ -287,12 +287,8 @@ class PoEditor
         $filesArray = [];
         foreach ($results as $key => $fileName) {
             $info = pathinfo($fileName);
-            if (isset($info['extension'])) {
-                if ($info['extension'] === $extension) {
-                    $filesArray[] = $fileName;
-                }
-            } else {
-                $c = 5;
+            if (isset($info['extension']) && $info['extension'] === $extension) {
+                $filesArray[] = $fileName;
             }
         }
 
