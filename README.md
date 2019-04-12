@@ -23,7 +23,8 @@ With the location of files provided created or edited translations could be expo
 
 ### Instantiating
 		 $editor = new \NMilosavljevic\PoEditor\PoEditor();
-		 
+		 //editor class has internal reference of translations
+		 // $editor->translations
 ### Generating translations from PHP code file
 		$phpTranslations = $editor->fromPHPCodeFile([
 		'functions' => ['__' => 'gettext'],
@@ -36,28 +37,60 @@ With the location of files provided created or edited translations could be expo
 Twig:
 
 		`<h3><strong>{{ __("who_are_we") }}</strong></h3>`
-
 PHP:
 
-    $twigTranslations = $editor->fromTwigFile([
-     'parser' => 'raw',$
-     'functions' => ['__' => 'gettext'],
-     'directories' => [sprintf('%s/Template/Default', $portalPath)]]);
+    `$twigTranslations = $editor->fromTwigFile([
+     'parser' => 'raw', //required
+     'functions' => ['__' => 'gettext'], //name of the function in twig file is __
+      //path to the directory which contain multiple twigfiles
+     'directories' => [sprintf('%s/Template/Default', $portalPath)]]);`
 
 #### Merge translations
-
      $twigTranslations->mergeWith($phpTranslations);
-
 #### Read from PO file
-
-    $editor->getTranslationsFromPOFile('App/Locale/en/translations.po');
+    $editor->readFromPOFile('App/Locale/en/translations.po');
 #### SaveTranslations
-
-    $editor->SaveTranslationsToPoMoFile($twigTranslations,'App/Locale/en/');
-
+    $editor->saveTranslationFiles('App/Locale/en/',$twigTranslations,'en','messages');
+    //or
+    $editor->SaveTranslationsToPoMoFile('App/Locale/en/');
+    //in this case, $editor->translations are used
 #### Get Editor HTML
-
+      `$editor = new \NMilosavljevic\PoEditor\PoEditor();
+       $shortcode = 'it';
+      $portalPath = str_replace('Dashboard', 'Portal', PROJECT_DIR);
+      $poFilePath = sprintf('%s/Locale/%s/LC_MESSAGES/messages.po',$portalPath,$shortcode);
+       
+       try{
+            $twigTranslations = $editor->fromTwigFile([
+                 'parser' => 'raw',
+                 'functions' => ['__' => 'gettext'],
+                 'directories' => [sprintf('%s/Template/Default', $portalPath)]]);
+       
+            $phpTranslations = $editor->fromPHPCodeFile([
+                'functions' => ['__' => 'gettext'],
+                 'directories' => [sprintf('%s/Helper', $portalPath)]]);
+            
+            //variables $twigTranslations and $phpTranslations are not used here, they are just declared
+            //to show that function could return exported translations
+            
+            //in this case, translations exported from twig and php files are merged into $editor->translations
+            //translations read from PO file will also be merged into $editor->translations
+            
+            $editor->readFromPOFile($poFilePath);
+            $html = $editor->getEditorHTML();`
+            
+            //render html in framework of your choice       
 ####  Save translations Using Editor
-`
+Submiting the translations from the editor (by clicking save button) will send post request
+to the same url with parameters translations and optional parameter language.
+
+Those parameters should be passed to saveFromEditor function
+
+        `$editor = new \NMilosavljevic\PoEditor\PoEditor();
+        $shortcode = 'it';
+        $portalPath = str_replace('Dashboard', 'Portal', PROJECT_DIR);
+        $directory = sprintf('%s/Locale/%s/LC_MESSAGES/',$portalPath,$shortcode);
+        $success = $editor->saveFromEditor($directory,$translations,'messages',$shortcode);`
+        //handle sending OK response here so that page could refresh.
 
 
