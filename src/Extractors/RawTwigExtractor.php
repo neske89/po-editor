@@ -55,7 +55,9 @@ class RawTwigExtractor extends Extractor
         return $translations;
     }
 
-    abstract public static function fromString($string, Translations $translations, array $options = []);
+     public static function fromString($string, Translations $translations, array $options = []) {
+
+     }
 
 
 
