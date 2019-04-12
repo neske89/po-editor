@@ -9,7 +9,7 @@
 namespace NMilosavljevic\PoEditor\Exceptions;
 use Exception;
 
-class FileException extends Exception
+class PoEditorException extends Exception
 {
 
 }

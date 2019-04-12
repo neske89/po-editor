@@ -9,12 +9,17 @@
 namespace NMilosavljevic\PoEditor\Extractors;
 
 use Gettext\Extractors\Extractor;
-use Gettext\Extractors\Twig;
 use Gettext\Translations;
 
 class RawTwigExtractor extends Extractor
 {
-
+    /**
+     * @param $file
+     * @param Translations $translations
+     * @param array $options
+     * @return Translations
+     * @throws \Exception
+     */
     public static function fromFile($file, Translations $translations, array $options = [])
     {
         $string = self::readFile($file);
@@ -50,11 +55,8 @@ class RawTwigExtractor extends Extractor
         return $translations;
     }
 
-    public static function fromString($string, Translations $translations, array $options = [])
-    {
-        return false;
-        //ToDo: declare as abstract
-    }
+    abstract public static function fromString($string, Translations $translations, array $options = []);
+
 
 
 }

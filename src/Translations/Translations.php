@@ -7,14 +7,19 @@
  */
 namespace NMilosavljevic\PoEditor\Translations;
 
-use Gettext\Extractors\Twig;
 use NMilosavljevic\PoEditor\Extractors\RawTwigExtractor;
 
 class Translations extends \Gettext\Translations
 {
 
+    /**
+     * @param $file
+     * @param $poOptions
+     * @return \Gettext\Translations
+     * @throws \Exception
+     */
     public static function fromRawTwigFile($file, $poOptions) {
-        $translations = new Translations();
+        $translations = new self();
         return RawTwigExtractor::fromFile($file,$translations,$poOptions);
     }
     

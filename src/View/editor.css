@@ -1,3 +1,14 @@
+.sticky {
+    position:fixed;
+    width:100%;
+}
+.header-row {
+    background: #edebf5;
+}
+.header-row .col-6 {
+    border: 1px solid #fdffff;
+    padding:5px;
+}
 table.table td {
     width:50%;
     cursor:pointer;
@@ -17,4 +28,13 @@ table.table td.translation textarea {
 }
 table.table td.translation textarea:focus {
     cursor:text;
+    border: none;
+    outline:none;
+}
+table.table tr.active td.translation textarea,
+table.table tr.active td,
+table.table tr:hover td.translation textarea,
+table.table tr:hover td
+{
+    background-color : rgba(169, 219, 255, 0.28);
 }
