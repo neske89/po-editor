@@ -1,5 +1,5 @@
 # PoEditor
-PHP librabry which provides PHP web interface to edit or create po files.
+PHP library which provides PHP web interface to edit or create po files.
 
 ## Credits
 Library heavily relies on [https://github.com/oscarotero/Gettext](https://github.com/oscarotero/Gettext).
