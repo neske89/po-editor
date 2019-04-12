@@ -62,7 +62,7 @@ class PoEditor
      * @param String $locale
      * @throws FileException
      */
-    public function SaveTranslationsToPoMoFile($translations, $directoryPath, $locale, $domain = 'LC_MESSAGES')
+    public function saveTranslationsToPoMoFile($translations, $directoryPath, $locale, $domain = 'LC_MESSAGES')
     {
         $localeDir = $locale . '_locale';
         $localeDir = sprintf('%s/%s', $directoryPath, $localeDir);
@@ -82,7 +82,7 @@ class PoEditor
         $translations->toPoFile(sprintf('%s/translations.po', $filesDir));
         $translations->toMoFile(sprintf('%s/translations.mo', $filesDir));
     }
-    public function FromTwigFile($options)
+    public function fromTwigFile($options)
     {
         if (isset($options['parser']) && $options['parser'] === 'raw') {
             return $this->getFromFile($options, self::RawTwigFile);
@@ -94,7 +94,7 @@ class PoEditor
         return $this->getFromFile($options, self::PHPFile);
     }
     private function renderHTML($translations) {
-        extract(['translations'=>$translations]);
+        extract(['translations'=>$translations],EXTR_OVERWRITE);
         ob_start();
         include('View/editor.php');
         return ob_get_clean();
