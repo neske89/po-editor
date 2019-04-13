@@ -1,5 +1,5 @@
 {
-  "name": "nmilosavljevic/neo-po-editor",
+  "name": "nmilosavljevic/poEditor",
   "description": "PHP librabry which provides PHP web interface to edit or create po files",
   "minimum-stability": "dev",
   "license": "proprietary",
