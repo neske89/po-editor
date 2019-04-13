@@ -4,10 +4,13 @@ PHP library which provides PHP web interface to edit or create po files.
 ## Credits
 Library heavily relies on [https://github.com/oscarotero/Gettext](https://github.com/oscarotero/Gettext).
 
+## Licence
+The MIT License (MIT). Please see License File for more information.
 ## Instalation
 Using composer
 
 `composer require nmilosavljevic/po-editor`
+
 ## Functionalities
 #### Generate translation keywords
 Translations keywords could be generated from **php code files** or **twig files**, Support for more formats will be available in the future. 
@@ -31,20 +34,20 @@ With the location of files provided created or edited translations could be expo
 		'functions' => ['__' => 'gettext'],
 		'directories' => ['App/Helpers/']]);
 ### Generating translations from TWIG  file
-			$twigTranslations = $editor->fromTwigFile([
+		$twigTranslations = $editor->fromTwigFile([
 		'functions' => ['__' => 'gettext'],
 		'directories' => [sprintf('%s/Helper', 'App/Template/)]]);
 #### If TWIG file uses custom function to translate
 Twig:
 
-		`<h3><strong>{{ __("who_are_we") }}</strong></h3>`
+		<h3><strong>{{ __("who_are_we") }}</strong></h3>
 PHP:
 
-    `$twigTranslations = $editor->fromTwigFile([
-     'parser' => 'raw', //required
-     'functions' => ['__' => 'gettext'], //name of the function in twig file is __
-      //path to the directory which contain multiple twigfiles
-     'directories' => [sprintf('%s/Template/Default', $portalPath)]]);`
+    $twigTranslations = $editor->fromTwigFile([
+    'parser' => 'raw', //required
+    'functions' => ['__' => 'gettext'], //name of the function in twig file is __
+     //path to the directory which contain multiple twigfiles
+    'directories' => [sprintf('%s/Template/Default', $portalPath)]]);`
 
 #### Merge translations
      $twigTranslations->mergeWith($phpTranslations);
@@ -56,7 +59,7 @@ PHP:
     $editor->SaveTranslationsToPoMoFile('App/Locale/en/');
     //in this case, $editor->translations are used
 #### Get Editor HTML
-      `$editor = new \NMilosavljevic\PoEditor\PoEditor();
+      $editor = new \NMilosavljevic\PoEditor\PoEditor();
        $shortcode = 'it';
       $portalPath = str_replace('Dashboard', 'Portal', PROJECT_DIR);
       $poFilePath = sprintf('%s/Locale/%s/LC_MESSAGES/messages.po',$portalPath,$shortcode);
@@ -78,7 +81,7 @@ PHP:
             //translations read from PO file will also be merged into $editor->translations
             
             $editor->readFromPOFile($poFilePath);
-            $html = $editor->getEditorHTML();`
+            $html = $editor->getEditorHTML();
             
             //render html in framework of your choice       
 ####  Save translations Using Editor
@@ -87,11 +90,11 @@ to the same url with parameters translations and optional parameter language.
 
 Those parameters should be passed to saveFromEditor function
 
-        `$editor = new \NMilosavljevic\PoEditor\PoEditor();
+        $editor = new \NMilosavljevic\PoEditor\PoEditor();
         $shortcode = 'it';
         $portalPath = str_replace('Dashboard', 'Portal', PROJECT_DIR);
         $directory = sprintf('%s/Locale/%s/LC_MESSAGES/',$portalPath,$shortcode);
-        $success = $editor->saveFromEditor($directory,$translations,'messages',$shortcode);`
+        $success = $editor->saveFromEditor($directory,$translations,'messages',$shortcode);
         //handle sending OK response here so that page could refresh.
 
 
