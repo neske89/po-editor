@@ -7,6 +7,7 @@ Library heavily relies on [https://github.com/oscarotero/Gettext](https://github
 ## Instalation
 Using composer
 
+`composer require nmilosavljevic/po-editor`
 ## Functionalities
 #### Generate translation keywords
 Translations keywords could be generated from **php code files** or **twig files**, Support for more formats will be available in the future. 
