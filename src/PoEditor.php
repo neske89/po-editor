@@ -133,7 +133,7 @@ class PoEditor
      * @throws FileException
      * @throws PoEditorException
      */
-    public function saveTranslationFiles($directory,$translations = null, $language = null, $fileName = '$translations')
+    public function saveTranslationFiles($directory,$translations = null, $fileName = 'translations', $language = null )
     {
         if (!is_dir($directory)) {
             if (!mkdir($directory,0777,true) && !is_dir($directory)) {
@@ -177,9 +177,12 @@ class PoEditor
             $translation = $translations->insert($translationDTO['context'],$translationDTO['original']);
             $translation->setTranslation($translationDTO['translation']);
         }
-        return $this->saveTranslationFiles($directory,$translations,$language,$fileName);
+        return $this->saveTranslationFiles($directory,$translations,$fileName,$language);
     }
 
+    /**
+     * @param Translations $translations
+     */
     public function mergeTranslations($translations)
     {
         $this->translations->mergeWith($translations);
